@@ -1,3 +1,14 @@
+$global-font: Helvetica, sans-serif;
+$global-color: #333;
+$backgr-color: MediumTurquoise;
+
+body {
+	font: 100% $global-font;
+	color: $global-color;
+	background-color: $backgr-color;
+}
+
+
 // Place all the styles related to the Articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
