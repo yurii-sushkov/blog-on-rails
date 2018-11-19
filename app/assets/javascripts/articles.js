@@ -1,1 +1,1 @@
-document.getElementById("article_text").rows = "15"; 
+//document.getElementById("article_text").rows = "15"; 
