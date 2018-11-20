@@ -1,16 +1,17 @@
 <h1><%= @article.title %></h1>
-
 <p>
 	<%= @article.text %>
 </p>
-
+<div class="comment-box">
 <h2>Comments</h2>
 <%= render @article.comments %>
-
+</div>
+<div class="comment-form-block">
 <h2>Add a comment</h2>
 <%= render 'comments/form' %>
 <% if user_signed_in? and current_user.admin? %>
-	<%= link_to 'Edit', edit_article_path(@article) %>
-	<%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Edit', edit_article_path(@article), class: "btn btn-warning" %>
+	<%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
 <% end %>
-<%= link_to 'Back', articles_path %>
+<%= link_to 'Back', articles_path, class: "btn btn-primary" %>
+</div>

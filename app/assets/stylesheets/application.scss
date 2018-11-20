@@ -1,9 +1,25 @@
+@import "bootstrap";
+
 $q: pink;
 
 body {
   background-color: $q;
+  padding-left: 3%;
 }
 
 p {
   width: 70%;
+}
+
+.article-form {
+  padding-left: 3%;
+  width: 60%;
+}
+
+.comment-box {
+
+}
+
+.comment-form-block {
+
 }

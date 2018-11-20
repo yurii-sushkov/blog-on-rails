@@ -8,6 +8,10 @@
 
 <p>
 <% if user_signed_in? and current_user.admin? %>
-	<%= link_to 'Destroy Comment', [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
+	<%= link_to 'Destroy Comment',
+			[comment.article, comment],
+			method: :delete,
+			data: { confirm: 'Are you sure?' },
+			class: "btn btn-danger" %>
 <% end %>
 </p>
