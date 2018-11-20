@@ -1,6 +1,13 @@
 class CommentsController < ApplicationController
 	def create
 		@article = Article.find(params[:article_id])
+
+		if user_signed_in?
+			comment_params.values.first[0] = current_user.name
+		else
+			comment_params.values.first[0] = "Anonymous"
+		end
+
 		@comment = @article.comments.create(comment_params)
 		redirect_to article_path(@article)
 	end

@@ -1,3 +1,8 @@
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+//= require bootstrap
+
 //document.addEventListener("turbolinks:load", function() {});
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
