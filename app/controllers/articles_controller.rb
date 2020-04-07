@@ -1,49 +1,80 @@
 class ArticlesController < ApplicationController
-	def index
-		@articles = Article.all
-	end
+  before_action :authenticate_user!, except: :index
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
 
-	def show
-		@article = Article.find(params[:id])
-	end
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+  # GET /articles
+  # GET /articles.json
+  def index
+    @articles = policy_scope(Article).reverse
+  end
 
-	def new
-		@article = Article.new
-	end
+  # GET /articles/1
+  # GET /articles/1.json
+  def show
+  end
 
-	def edit
-		@article = Article.find(params[:id])
-	end
+  # GET /articles/new
+  def new
+    @article = Article.new
+    authorize @article
+  end
 
-	def create
-		@article = Article.new(article_params)
+  # GET /articles/1/edit
+  def edit
+  end
 
-		if @article.save
-			redirect_to @article
-		else
-			render 'new'
-		end
-	end
+  # POST /articles
+  # POST /articles.json
+  def create
+    @article = Article.new(article_params)
+    authorize @article
 
-	def update
-		@article = Article.find(params[:id])
+    respond_to do |format|
+      if @article.save
+        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.json { render :show, status: :created, location: @article }
+      else
+        format.html { render :new }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-		if @article.update(article_params)
-			redirect_to @article
-		else
-			render 'edit'
-		end
-	end
+  # PATCH/PUT /articles/1
+  # PATCH/PUT /articles/1.json
+  def update
+    respond_to do |format|
+      if @article.update(article_params)
+        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+        format.json { render :show, status: :ok, location: @article }
+      else
+        format.html { render :edit }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-	def destroy
-		@article = Article.find(params[:id])
+  # DELETE /articles/1
+  # DELETE /articles/1.json
+  def destroy
+    @article.destroy
+    respond_to do |format|
+      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
 
-		@article.destroy
-		redirect_to articles_path
-	end
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_article
+      @article = Article.find(params[:id])
+      authorize @article
+    end
 
-	private
-	def article_params
-		params.require(:article).permit(:title, :text)
-	end
+    # Only allow a list of trusted parameters through.
+    def article_params
+      params.require(:article).permit(:title, :body, :published).merge(author_id: current_user.id)
+    end
 end
