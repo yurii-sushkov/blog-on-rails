@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   after_action :verify_authorized, except: :index
