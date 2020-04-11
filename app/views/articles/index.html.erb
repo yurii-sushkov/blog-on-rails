@@ -17,7 +17,7 @@
     <% @articles.each do |article| %>
       <tr>
         <td><%= article.title %></td>
-        <td><%= article.author.email %>
+        <td><%= article.user.email %>
         <td><%= article.body %></td>
         <td><%= article.published %></td>
         <td><%= link_to 'Show', article %></td>

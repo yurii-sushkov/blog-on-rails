@@ -1,11 +1,15 @@
 class ArticlePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(published: true).or(scope.where(author_id: @user.try(:id)))
+      scope.where(published: true).or(scope.where(user_id: @user.try(:id)))
     end
   end
 
   def new?
+    user_is_owner_of_record?
+  end
+
+  def create?
     user_is_owner_of_record?
   end
 
@@ -24,6 +28,6 @@ class ArticlePolicy < ApplicationPolicy
   private
 
   def user_is_owner_of_record?
-    user == @record.author
+    user == @record.user
   end
 end

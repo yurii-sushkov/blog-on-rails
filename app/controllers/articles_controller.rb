@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/new
   def new
-    @article = Article.new
+    @article = current_user.articles.new
     authorize @article
   end
 
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.new(article_params)
     authorize @article
 
     respond_to do |format|
@@ -75,6 +75,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :body, :published).merge(author_id: current_user.id)
+      params.require(:article).permit(:title, :body, :published)
     end
 end
