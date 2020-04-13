@@ -1,25 +1,9 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
-
-<p>
-  <strong>Author:</strong>
-  <%= @article.user.first_name %>
-  <%= @article.user.last_name %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @article.body %>
-</p>
-
-<p>
-  <strong>Published:</strong>
-  <%= @article.published %>
-</p>
+<%= react_component('Article', { title: @article.title,
+                                 author: "#{@article.user.first_name} #{@article.user.last_name}",
+                                 body: @article.body,
+                                 published: @article.published,
+                                 lastUpdated: time_ago_in_words(@article.updated_at) }) %>
 
 <div>
   <strong>Comments:</strong>
